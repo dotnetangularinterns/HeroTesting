@@ -1,64 +1,83 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-int Modifier;
-string Modifier;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using intModifier;
+using stringModifier;
 namespace HeroTesting
 {
     [TestClass]
-    public class UnitTest1
+    public class HeroTesting
     {
-
-        [TestMethod]
-        public void should_add_hero()
+        public void add_new_hero_list()
         {
             var hero = new Hero();
-            hero.name = "Dale";
 
-            heros.Add(new Hero { Id = 0, Name = "Chris", Pic = "https://making-the-web.com/sites/default/files/clipart/142014/stick-figure-142014-5551841.jpg", Power = 1.5 });
-            heros.Add(new Hero { Id = 1, Name = "Marcus", Pic = "https://image.shutterstock.com/image-vector/stick-figure-celebration-cheer-260nw-331595411.jpg", Power = 2 });
-            heros.Add(new Hero { Id = 2, Name = "Ashazi", Pic = "http://clipart-library.com/images/pio5eXK6T.png", Power = 3 });
-            heros.Add(new Hero { Id = 3, Name = "Pasha", Pic = "https://image.shutterstock.com/image-vector/stick-figure-business-ideas-260nw-220840597.jpg", Power = 4 });
-            heros.Add(new Hero { Id = 4, Name = "Dale", Pic = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2014%2F11%2F11%2F01%2F24%2Fstrong-526265_960_720.jpg&imgrefurl=https%3A%2F%2Fpixabay.com%2Fillustrations%2Fstrong-stick-figure-adult-happy-526265%2F&docid=ExWGomSs9u8G9M&tbnid=8OGGvW0IblR0AM%3A&vet=10ahUKEwjlz_GE9YLjAhWxc98KHYmvDtoQMwhaKAEwAQ..i&w=478&h=720&safe=active&bih=969&biw=1920&q=strong%20stick%20figure&ved=0ahUKEwjlz_GE9YLjAhWxc98KHYmvDtoQMwhaKAEwAQ&iact=mrc&uact=8 ", Power = 2.5 });
-
-            heros.addHero(hero);
+            Assert.IsNotNull(hero.GetHeroes());
         }
-            //add Heroes[Test]  
-    }
 
         [TestMethod]
-        public void should_get_hero()
+        public void add_hero_when_hero_submitted()
         {
-            var hero = Hero(int id);
-            heros.getHero = 2;
+            var hero = new Hero();
 
-            result.Make.ShouldEqual("Chris");
+            Hero hero = new Hero()
+            {
+                Hero.name = "Dale",
+                Pic = "https://images2.minutemediacdn.com/image/upload/c_crop,h_1180,w_2100,x_0,y_94/f_auto,q_auto,w_1100/v1555001162/shape/mentalfloss/504106-wikipedia.jpg",
+                Power = 5.0
+            };
+
+            int id = Hero.GenerateId();
+            hero.Id = id;
+            heroes.Add(hero);
+
+            Assert.AreEqual(id, hero.GetHeroes().Last().Id);
+        }
+        //add Heroes[Test]  
+
+
+        [TestMethod]
+        public void get_hero_when_hero_added()
+        {
+            var hero = new Hero();
+            string name = "Ma";
+
+            IEnumerable<Hero> filtered = hero.GetHeroes(name);
+
+            Assert.AreEqual(1, filtered.Count());
             //get Heroes[Test]
         }
 
         [TestMethod]
-        public void should_update_hero()
+        public void update_hero_when_hero_added()
         {
-            
+            var hero = new Hero();
+            Hero hero = new Hero()
+            {
+                Id = 4,
+                Name = "Dale",
+                Pic = "https://images2.minutemediacdn.com/image/upload/c_crop,h_1180,w_2100,x_0,y_94/f_auto,q_auto,w_1100/v1555001162/shape/mentalfloss/504106-wikipedia.jpg",
+                Power = 3
 
+            };
 
-            result.Make.ShouldEqual(5);
+            hero.Update(hero);
+
+            Assert.AreEqual(10, hero.GetHeroes().Power);
 
             //update Heroes[Test]
         }
 
         [TestMethod]
-        public void should_remove_hero()
-        { 
-             var hero = Hero(int id);
-             heros.removeHero = 4;
+        public void remove_hero()
+        {
+            var hero = new Hero();
 
-                heros.Add(new Hero { Id = 0, Name = "Chris", Pic = "https://making-the-web.com/sites/default/files/clipart/142014/stick-figure-142014-5551841.jpg", Power = 1.5 });
-                heros.Add(new Hero { Id = 1, Name = "Marcus", Pic = "https://image.shutterstock.com/image-vector/stick-figure-celebration-cheer-260nw-331595411.jpg", Power = 2 });
-                heros.Add(new Hero { Id = 2, Name = "Ashazi", Pic = "http://clipart-library.com/images/pio5eXK6T.png", Power = 3 });
-                heros.Add(new Hero { Id = 3, Name = "Pasha", Pic = "https://image.shutterstock.com/image-vector/stick-figure-business-ideas-260nw-220840597.jpg", Power = 4 });
-                heros.Add(new Hero { Id = 4, Name = "Dale", Pic = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2014%2F11%2F11%2F01%2F24%2Fstrong-526265_960_720.jpg&imgrefurl=https%3A%2F%2Fpixabay.com%2Fillustrations%2Fstrong-stick-figure-adult-happy-526265%2F&docid=ExWGomSs9u8G9M&tbnid=8OGGvW0IblR0AM%3A&vet=10ahUKEwjlz_GE9YLjAhWxc98KHYmvDtoQMwhaKAEwAQ..i&w=478&h=720&safe=active&bih=969&biw=1920&q=strong%20stick%20figure&ved=0ahUKEwjlz_GE9YLjAhWxc98KHYmvDtoQMwhaKAEwAQ&iact=mrc&uact=8 ", Power = 2.5 });
+            hero.removeHero(4);
 
-
-            HeroList.Remove(Id = 4);
+            Assert.AreEqual(3, hero.GetHeroes().Count());
             //subtract Heroes[Test]
         }
+    }
 }
